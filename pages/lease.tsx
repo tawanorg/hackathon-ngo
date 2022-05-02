@@ -3,6 +3,7 @@ import { StarIcon } from '@heroicons/react/outline'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { withPage } from '../components/hoc'
+import Pagination from '../components/Pagination'
 import QuickView from '../components/QuickView'
   
 function classNames(...classes: string[]) {
@@ -10,6 +11,32 @@ function classNames(...classes: string[]) {
 }
 
 const products = [
+  {
+    id: 1,
+    name: 'Mac Mini',
+    company: 'Apple Inc',
+    company_id: 1,
+    spec: 'Processor. 6-Core. 3.0GHz 6-core Intel Core i5; Turbo Boost up to 4.1GHz; 9MB',
+    price: '$3200.00',
+    quantity: 1,
+    lease: {
+      from: new Date('2020-01-20').toISOString(),
+      end: new Date('2022-08-12').toISOString(),
+    },
+    imageSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRMhoakm8vcnxx9rWX3BwDpq3j-Bp31M4iIQ&usqp=CAU',
+    metadata: {
+      colors: [
+        { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
+        { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
+        { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+      ],
+      rams: [
+        { name: '16', inStock: true },
+        { name: '32', inStock: true },
+        { name: '64', inStock: false },
+      ],
+    }
+  },
   {
     id: 1,
     name: 'Mac Mini',
@@ -94,6 +121,7 @@ const Lease: NextPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
   const [selectedColor, setSelectedColor] = useState(selectedProduct?.metadata?.colors[0])
   const [selectedSize, setSelectedSize] = useState(selectedProduct?.metadata?.rams[2])
+  const [subscribed, setSub] = useState(null)
 
   useEffect(() => {
     setSelectedColor(selectedProduct)
@@ -246,7 +274,32 @@ const Lease: NextPage = () => {
                               </div>
                             </RadioGroup>
                           </div>
- 
+
+                          {subscribed?.id === selectedProduct?.id ? (
+                            <div>
+                              <button
+                             
+                             className="mt-6 w-full bg-green-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                             onClick={() => handleSubscribe(selectedProduct)}
+                           >
+                             Leased
+                           </button>
+                           <button
+                             
+                            className="mt-2 w-full bg-yellow-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                            onClick={() => handleSubscribe(null)}
+                          >
+                            Cancel
+                          </button>
+                              </div>
+                          ) : (<button
+                             
+                            className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => handleSubscribe(selectedProduct)}
+                          >
+                            Checkout on lease
+                          </button>)}
+
                         </div>
                       </section>
                     </div>
@@ -286,21 +339,23 @@ const Lease: NextPage = () => {
 
                 <div className="flex flex-row">
                   <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500 mr-4">
-                  Leased expired on {new Date(product.lease.from).toDateString()}
+                  Available
+                   {/* from {new Date(product.lease.from).toDateString()} */}
                   </button>
                 </div>
               </div>
             </div>
           </li>
         ))}
-      </ul> 
+      </ul>
+      <Pagination />
     </div>
   )
 }
 
 export default withPage(Lease, {
   page: {
-    title: 'My Subscription',
-    subtitle: ''
+    title: 'Available for lease',
+    subtitle: 'Discover all kind of equipments available for lease'
   }
 })
