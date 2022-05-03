@@ -12,7 +12,7 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/admin', current: true },
+  { name: 'Inventory', href: '/admin', current: true },
   { name: 'Recycles', href: '/admin/recycle', current: false }, 
   { name: 'Insights', href: '/admin/revenue', current: false }, 
 ]

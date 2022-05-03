@@ -123,7 +123,7 @@ const Lease: NextPage = () => {
 
 export default withPageAdmin(Lease, {
   page: {
-    title: 'My Items',
+    title: 'Inventory',
     subtitle: ''
   }
 })

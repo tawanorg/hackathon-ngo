@@ -12,7 +12,7 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/', current: true },
+  { name: 'My Subscriptions', href: '/', current: true },
   { name: 'Lease', href: '/lease', current: false }, 
   { name: 'Donate', href: '/donate', current: false }, 
 ]

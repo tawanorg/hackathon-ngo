@@ -219,7 +219,7 @@ const Lease: NextPage = () => {
 
 export default withPage(Lease, {
   page: {
-    title: 'My Subscription',
+    title: 'My Subscriptions',
     subtitle: ''
   }
 })

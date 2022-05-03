@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { withPage } from '../components/hoc'
 import Pagination from '../components/Pagination'
 import QuickView from '../components/QuickView'
-import { products as leasedProducts } from '../utils/constants'
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
@@ -29,48 +28,7 @@ const Lease: NextPage = () => {
          
          {submittedDonation?.ngo_id === selectedProduct?.ngo_id ? (
            <div className="d-flex flex-row justify-center w-full py-4">
-             <h3 className="text-lg mb-6">Select an item you like to donate</h3>
-            <ul role="list" className="-my-6 divide-y divide-gray-200 mb-8">
-              {leasedProducts.map((product) => (
-                <div key={product.id} 
-                className={classNames(
-                  selectItem?.id === product?.id ? 'bg-yellow-200' : null,
-                  'flex py-2 px-4 hover:bg-yellow-200 rounded mb-2'
-                )}
-
-                  onClick={() => setSelectItem(product)}>
-                  <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                    <img
-                      src={product.imageSrc}
-                      alt={product.name}
-                      className="h-full w-full object-cover object-center"
-                      width="100%"
-                      height="100%"
-                      onClick={() => setSelectedProduct(product)}
-                    />
-                  </div>
-
-                  <div className="ml-4 flex flex-1 flex-col">
-                    <div>
-                      <div className="flex justify-between text-base font-medium text-gray-900">
-                        <h3>
-                          <a onClick={(e) => {
-                            e.preventDefault();
-                            setSelectedProduct(product)
-                          }}> {product.name} </a>
-                        </h3>
-                        <p className="ml-4">{product.price}</p>
-                      </div>
-                      <p className="mt-1 text-sm text-gray-500">{product.company}</p>
-                      <p className="mt-1 text-sm text-gray-500">{product.spec}</p>
-                    </div>
-                    <div className="flex flex-1 items-end justify-between text-sm">
-                      <p className="text-gray-500">Qty {product.quantity}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </ul> 
+             
               <div>
                 <h3 className="mb-4">Your personal detail</h3>
               <div className="shadow overflow-hidden sm:rounded-md">
@@ -128,7 +86,19 @@ const Lease: NextPage = () => {
                       />
                     </div>
 
-                     
+                    <div className="col-span-6">
+                      <label htmlFor="tel" className="block text-sm font-medium text-gray-700">
+                        Note
+                      </label>
+                      <textarea
+                        
+                        name="note"
+                        id="note"
+                        autoComplete="note"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      />
+                    </div>
+
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
