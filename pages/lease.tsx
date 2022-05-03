@@ -17,7 +17,7 @@ const products = [
     company: 'Apple Inc',
     company_id: 1,
     spec: 'Processor. 6-Core. 3.0GHz 6-core Intel Core i5; Turbo Boost up to 4.1GHz; 9MB',
-    price: '$3200.00',
+    price: '$100 per month',
     quantity: 1,
     lease: {
       from: new Date('2020-01-20').toISOString(),
@@ -43,7 +43,7 @@ const products = [
     company: 'Apple Inc',
     company_id: 1,
     spec: 'Processor. 6-Core. 3.0GHz 6-core Intel Core i5; Turbo Boost up to 4.1GHz; 9MB',
-    price: '$3200.00',
+    price: '$120 per month',
     quantity: 1,
     lease: {
       from: new Date('2020-01-20').toISOString(),
@@ -69,7 +69,7 @@ const products = [
     company: 'Apple Inc',
     company_id: 1,
     spec: 'Processor. 6-Core. 3.0GHz 6-core Intel Core i5; Turbo Boost up to 4.1GHz; 9MB',
-    price: '$3200.00',
+    price: '$220 per month',
     quantity: 1,
     lease: {
       from: new Date('2020-01-20').toISOString(),
