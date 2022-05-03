@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { withPage } from '../components/hoc'
 import Pagination from '../components/Pagination'
 import QuickView from '../components/QuickView'
-import { products as leasedProducts } from './constants'
+import { products as leasedProducts } from '../utils/constants'
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }

@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { withPage } from '../components/hoc'
 import QuickView from '../components/QuickView'
-import { products } from './constants'
+import { products } from '../utils/constants'
   
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
