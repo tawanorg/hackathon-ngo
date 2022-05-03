@@ -48,7 +48,7 @@ function App() {
 
 export default withPageAdmin(App, {
   page: {
-    title: 'Revenue',
-    subtitle: ''
+    title: 'Revenue Insight',
+    subtitle: 'Revenue generate by e-waste in 2021'
   }
 })

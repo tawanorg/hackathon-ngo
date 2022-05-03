@@ -3,11 +3,16 @@ import { useEffect, useState } from 'react'
 import { withPage } from '../components/hoc'
 import Pagination from '../components/Pagination'
 import QuickView from '../components/QuickView'
-   
+import { products as leasedProducts } from './constants'
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}
 const Lease: NextPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
   const [products, setProducts] = useState([])
   const [submittedDonation, setSubmittedDonation] = useState(null)
+  const [selectItem, setSelectItem] = useState(null)
+  const [isSubmit, setSubmit] = useState(null)
   
   useEffect(() => {
     async function getNgo() {
@@ -17,16 +22,130 @@ const Lease: NextPage = () => {
     getNgo()
   }, [])
   // Your details has been sent to the NGO. Someone will get back  to you
-
+   
   return (
     <div className="d-flex flex-col">
       <QuickView selectedProduct={selectedProduct}>
+         
          {submittedDonation?.ngo_id === selectedProduct?.ngo_id ? (
-           <div className="d-flex flex-row justify-center w-full">
-             <div><svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="green" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg></div>
-            <h1>Your details has been sent to the NGO. Someone will get back  to you</h1>
+           <div className="d-flex flex-row justify-center w-full py-4">
+             <h3 className="text-lg mb-6">Select an item you like to donate</h3>
+            <ul role="list" className="-my-6 divide-y divide-gray-200 mb-8">
+              {leasedProducts.map((product) => (
+                <div key={product.id} 
+                className={classNames(
+                  selectItem?.id === product?.id ? 'bg-yellow-200' : null,
+                  'flex py-2 px-4 hover:bg-yellow-200 rounded mb-2'
+                )}
+
+                  onClick={() => setSelectItem(product)}>
+                  <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                    <img
+                      src={product.imageSrc}
+                      alt={product.name}
+                      className="h-full w-full object-cover object-center"
+                      width="100%"
+                      height="100%"
+                      onClick={() => setSelectedProduct(product)}
+                    />
+                  </div>
+
+                  <div className="ml-4 flex flex-1 flex-col">
+                    <div>
+                      <div className="flex justify-between text-base font-medium text-gray-900">
+                        <h3>
+                          <a onClick={(e) => {
+                            e.preventDefault();
+                            setSelectedProduct(product)
+                          }}> {product.name} </a>
+                        </h3>
+                        <p className="ml-4">{product.price}</p>
+                      </div>
+                      <p className="mt-1 text-sm text-gray-500">{product.company}</p>
+                      <p className="mt-1 text-sm text-gray-500">{product.spec}</p>
+                    </div>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                      <p className="text-gray-500">Qty {product.quantity}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </ul> 
+              <div>
+                <h3 className="mb-4">Your personal detail</h3>
+              <div className="shadow overflow-hidden sm:rounded-md">
+                <div className="px-4 py-5 bg-white sm:p-6">
+                  <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                        First name
+                      </label>
+                      <input
+                        type="text"
+                        name="first-name"
+                        id="first-name"
+                        autoComplete="given-name"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      />
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                        Last name
+                      </label>
+                      <input
+                        type="text"
+                        name="last-name"
+                        id="last-name"
+                        autoComplete="family-name"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      />
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-4">
+                      <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                        Email address
+                      </label>
+                      <input
+                        type="text"
+                        name="email-address"
+                        id="email-address"
+                        autoComplete="email"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      />
+                    </div>
+ 
+                    <div className="col-span-6">
+                      <label htmlFor="tel" className="block text-sm font-medium text-gray-700">
+                        Phone number
+                      </label>
+                      <input
+                        type="tel"
+                        name="tel"
+                        id="tel"
+                        autoComplete="tel"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      />
+                    </div>
+
+                     
+                  </div>
+                </div>
+                <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                {isSubmit?.ngo_id === selectedProduct?.ngo_id ? (
+                  <span>Your details has been sent to the NGO. Someone will get back  to you</span>
+                ) : (
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={() => setSubmit(selectedProduct)}
+                  >
+                    Submit
+                  </button>
+                )}
+                </div>
+              </div>
+            </div>
            </div>
          ) : (
          <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
